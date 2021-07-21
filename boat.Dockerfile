@@ -49,9 +49,12 @@ COPY boat_packages/dvl_a50 /ros_ws/src/dvl_a50
 COPY boat_packages/dvl_msgs /ros_ws/src/dvl_msgs
 
 # build
-RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
-
-
+#RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
+RUN /ros_entrypoint.sh
+#RUN source /opt/ros/humble/setup.bash 
+WORKDIR ros_ws/
+#RUN colcon build
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build"
 # RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]

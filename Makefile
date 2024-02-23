@@ -9,9 +9,9 @@ package-xml-batch-dir:
 package-xml-batch: package-xml-batch-dir
 
 boat-%: boat.Dockerfile package-xml-batch
-	docker build -t "jake/boat:$*" -f "$<" .
+	docker build -t "wrc/boat:$*" -f "$<" .
 
 test-boat-%: boat-%
-	docker run --rm -it --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=":0" "jake/boat:$*" 
+	docker run --rm -it --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=":0" "wrc/boat:$*" 
 	
 all: $(addprefix boat-,$(RELEASES))

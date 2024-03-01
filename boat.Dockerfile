@@ -13,27 +13,27 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
+RUN sudo apt update
+RUN sudo apt install ros-humble-diagnostic-updater
+RUN sudo apt-get install -y libpcap-dev 
+RUN sudo apt-get install -y ros-humble-angles
+RUN sudo apt-get install -y ros-humble-pcl-ros
 RUN sudo apt-get install usbutils
 
 # RUN sudo apt install python3-colcon-common-extensions
-
-
 
 USER 0
 RUN mkdir -p /ros_ws/src/
 USER $CONTAINER_USER_ID
 
-
+# copy the code
 COPY /vectornav /ros_ws/src/vectornav
+RUN git clone "https://github.com/ros-drivers/velodyne.git" "ros_ws/src/velodyne" --branch ros2
 
-RUN cd /ros_ws
-# RUN colcon build
-
-# RUN git clone "https://github.com/osu-uwrt/vectornav.git" "catkin_ws/src/vectornav" --branch ros2
-
-RUN /ros_entrypoint.sh colcon build
+# build
+RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
 
 
-# RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"/ros2_ws/install/setup.bash\"\\" /ros_entrypoint.sh
+RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]

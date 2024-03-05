@@ -14,11 +14,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sudo apt update
+RUN sudo apt-get install build-essential
+RUN sudo apt update
+
+RUN sudo apt-get install usbutils
+RUN sudo apt-get install -y libpcap-dev 
 RUN sudo apt install ros-humble-diagnostic-updater
 RUN sudo apt-get install -y libpcap-dev 
 RUN sudo apt-get install -y ros-humble-angles
 RUN sudo apt-get install -y ros-humble-pcl-ros
-RUN sudo apt-get install usbutils
+#RUN sudo apt-get install usbutils
 
 # RUN sudo apt install python3-colcon-common-extensions
 
@@ -28,11 +33,16 @@ USER $CONTAINER_USER_ID
 
 # copy the code
 COPY boat_packages/vectornav /ros_ws/src/vectornav
+RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
+
 COPY boat_packages/starfish_ros /ros_ws/src/starfish_ros
+RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
+
 COPY boat_packages/velodyne /ros_ws/src/velodyne
+RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
 
 # build
-RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
+# RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
 
 
 # RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh

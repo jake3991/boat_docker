@@ -27,13 +27,14 @@ RUN mkdir -p /ros_ws/src/
 USER $CONTAINER_USER_ID
 
 # copy the code
-COPY /vectornav /ros_ws/src/vectornav
-RUN git clone "https://github.com/ros-drivers/velodyne.git" "ros_ws/src/velodyne" --branch ros2
+COPY boat_packages/vectornav /ros_ws/src/vectornav
+COPY boat_packages/starfish_ros /ros_ws/src/starfish_ros
+COPY boat_packages/velodyne /ros_ws/src/velodyne
 
 # build
 RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
 
 
-RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh
+# RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]

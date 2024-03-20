@@ -25,7 +25,11 @@ RUN sudo apt-get install -y ros-humble-angles
 RUN sudo apt-get install -y ros-humble-pcl-ros
 #RUN sudo apt-get install usbutils
 
-# RUN sudo apt install python3-colcon-common-extensions
+# RUN sudo apt install python3-colcon-common-extension
+RUN sudo apt install -y python3-pip
+RUN pip install pymavlink
+RUN pip install pyserial
+RUN pip install mavproxy
 
 USER 0
 RUN mkdir -p /ros_ws/src/
@@ -33,6 +37,9 @@ USER $CONTAINER_USER_ID
 
 # copy the startup script
 COPY start_in_docker.sh start_in_docker.sh
+COPY warm_up.sh warm_up.sh
+RUN sudo chmod +x ./start_in_docker.sh
+RUN sudo chmod +x ./warm_up.sh
 
 # copy the code
 COPY boat_packages/vectornav /ros_ws/src/vectornav

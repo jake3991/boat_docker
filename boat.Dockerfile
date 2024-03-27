@@ -45,6 +45,8 @@ RUN sudo chmod +x ./warm_up.sh
 COPY boat_packages/vectornav /ros_ws/src/vectornav
 COPY boat_packages/starfish_ros /ros_ws/src/starfish_ros
 COPY boat_packages/velodyne /ros_ws/src/velodyne
+COPY boat_packages/dvl_a50 /ros_ws/src/dvl_a50
+COPY boat_packages/dvl_msgs /ros_ws/src/dvl_msgs
 
 # build
 RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install

@@ -23,6 +23,7 @@ RUN sudo apt install ros-humble-diagnostic-updater
 RUN sudo apt-get install -y libpcap-dev 
 RUN sudo apt-get install -y ros-humble-angles
 RUN sudo apt-get install -y ros-humble-pcl-ros
+RUN sudo apt-get install -y ros-humble-cv-bridge
 #RUN sudo apt-get install usbutils
 
 # RUN sudo apt install python3-colcon-common-extension
@@ -47,8 +48,9 @@ COPY boat_packages/starfish_ros /ros_ws/src/starfish_ros
 COPY boat_packages/velodyne /ros_ws/src/velodyne
 COPY boat_packages/dvl_a50 /ros_ws/src/dvl_a50
 COPY boat_packages/dvl_msgs /ros_ws/src/dvl_msgs
+COPY boat_packages/sonar_oculus /ros_ws/src/sonar_oculus
 
-# build
+#build
 #RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
 RUN /ros_entrypoint.sh
 #RUN source /opt/ros/humble/setup.bash 

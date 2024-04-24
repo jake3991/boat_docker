@@ -31,6 +31,7 @@ RUN sudo apt install -y python3-pip
 RUN pip install pymavlink
 RUN pip install pyserial
 RUN pip install mavproxy
+RUN pip install smbus2
 
 USER 0
 RUN mkdir -p /ros_ws/src/

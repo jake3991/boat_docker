@@ -2,6 +2,6 @@
 source ros_ws/install/setup.bash
 
 # launch the rosnodes
-ros2 launch starfish_ros boat.xml
+ros2 launch blueboat_ros boat_ouster.xml
 
 

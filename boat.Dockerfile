@@ -46,11 +46,12 @@ RUN sudo chmod +x ./warm_up.sh
 
 # copy the code
 COPY boat_packages/vectornav /ros_ws/src/vectornav
-COPY boat_packages/starfish_ros /ros_ws/src/starfish_ros
+COPY boat_packages/blueboat_ros /ros_ws/src/blueboat_ros
 COPY boat_packages/velodyne /ros_ws/src/velodyne
 COPY boat_packages/dvl_a50 /ros_ws/src/dvl_a50
 COPY boat_packages/dvl_msgs /ros_ws/src/dvl_msgs
 COPY boat_packages/sonar_oculus /ros_ws/src/sonar_oculus
+COPY boat_packages/ouster-ros /ros_ws/src/ouster-ros
 
 #build
 #RUN /ros_entrypoint.sh colcon build --base-paths ros_ws/ --build-base ros_ws/build --install-base ros_ws/install
@@ -58,7 +59,7 @@ RUN /ros_entrypoint.sh
 #RUN source /opt/ros/humble/setup.bash 
 WORKDIR ros_ws/
 #RUN colcon build
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build"
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"
 # RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]

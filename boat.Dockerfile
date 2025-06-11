@@ -24,6 +24,7 @@ RUN sudo apt-get install -y libpcap-dev
 RUN sudo apt-get install -y ros-humble-angles
 RUN sudo apt-get install -y ros-humble-pcl-ros
 RUN sudo apt-get install -y ros-humble-cv-bridge
+RUN sudo apt-get install -y ros-humble-rmw-cyclonedds-cpp
 #RUN sudo apt-get install usbutils
 
 # RUN sudo apt install python3-colcon-common-extension

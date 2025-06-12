@@ -7,6 +7,6 @@
 # sudo chown root:boat /dev/bus/usb/001/*
 
 # start the docker image
-sudo docker run --rm -it --net=host --ipc=host --pid=host -v /media/boat/external_dr:/media/root/external_dr -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY="$DISPLAY" --privileged -v /dev:/dev -v /dev/bus/usb:/dev/bus/usb wrc/boat:humble bash
+sudo docker run --rm -it --net=host --ipc=host --pid=host -v /media/boat/external_dr:/media/root/external_dr -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY="$DISPLAY" --privileged -v /dev:/dev -v /dev/bus/usb:/dev/bus/usb wrc/boat:jazzy bash
 
 

@@ -1,4 +1,4 @@
-ARG ROS_DISTRO=humble
+ARG ROS_DISTRO=jazzy
 FROM ros:${ROS_DISTRO}
 
 ARG DEBIAN_FRONTEND=noninteractive 
@@ -19,21 +19,21 @@ RUN sudo apt update
 
 RUN sudo apt-get install usbutils
 RUN sudo apt-get install -y libpcap-dev 
-RUN sudo apt install ros-humble-diagnostic-updater
+RUN sudo apt install ros-jazzy-diagnostic-updater
 RUN sudo apt-get install -y libpcap-dev 
-RUN sudo apt-get install -y ros-humble-angles
-RUN sudo apt-get install -y ros-humble-pcl-ros
-RUN sudo apt-get install -y ros-humble-cv-bridge
-RUN sudo apt-get install -y ros-humble-rmw-cyclonedds-cpp
+RUN sudo apt-get install -y ros-jazzy-angles
+RUN sudo apt-get install -y ros-jazzy-pcl-ros
+RUN sudo apt-get install -y ros-jazzy-cv-bridge
+RUN sudo apt-get install -y ros-jazzy-rmw-cyclonedds-cpp
 #RUN sudo apt-get install usbutils
 
 # RUN sudo apt install python3-colcon-common-extension
 RUN sudo apt install -y python3-pip
-RUN pip install pymavlink
-RUN pip install pyserial
-RUN pip install mavproxy
-RUN pip install smbus2
-RUN pip install websocket-client
+RUN pip install pymavlink --break-system-packages
+RUN pip install pyserial --break-system-packages
+RUN pip install mavproxy --break-system-packages
+RUN pip install smbus2 --break-system-packages
+RUN pip install websocket-client --break-system-packages
 
 USER 0
 RUN mkdir -p /ros_ws/src/
@@ -60,7 +60,7 @@ RUN /ros_entrypoint.sh
 #RUN source /opt/ros/humble/setup.bash 
 WORKDIR ros_ws/
 #RUN colcon build
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash; colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"
 # RUN sed -i "$(wc -l < /ros_entrypoint.sh)i\\source \"//install/setup.bash\"\\" /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
